@@ -16,7 +16,9 @@ export class UserControllers {
   getAllUsers = async (req, res, next) => {
     try {
       const users = await this.userServices.getAll();
-      throw new Error("Nuestro error");
+      if (!users) {
+        throw new Error("Nuestro error");
+      }
       res.send({ status: "success", payload: users });
     } catch (error) {
       next(error);

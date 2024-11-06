@@ -5,8 +5,12 @@ export default class Users {
     return userModel.find(params);
   };
 
-  getBy = (params) => {
+  getById = (params) => {
     return userModel.findById(params);
+  };
+
+  getByEmail = (email) => {
+    return userModel.findOne({ email });
   };
 
   save = (doc) => {
@@ -18,7 +22,7 @@ export default class Users {
   };
 
   update = (id, doc) => {
-    return userModel.findByIdAndUpdate(id, { $set: doc });
+    return userModel.findByIdAndUpdate(id, { $set: doc }, { new: true });
   };
 
   delete = (id) => {
