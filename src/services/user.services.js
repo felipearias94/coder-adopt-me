@@ -4,7 +4,6 @@ import { generateUsersMock } from "../mocks/users.mock.js";
 
 export class UserServices {
   constructor() {
-    // this.userRepository = new UserRepository(new Users());
     this.userDao = new Users();
   }
   async getAll() {
@@ -13,8 +12,14 @@ export class UserServices {
   }
 
   async getById(id) {
-    const user = await this.userDao.getBy(id);
+    const user = await this.userDao.getById(id);
     if (!user) throw customError.notFoundError(`User id ${id} not found`);
+    return user;
+  }
+
+  async getUserByEmail(email) {
+    const user = await this.userDao.getByEmail(email);
+    //if (!user) throw customError.notFoundError(`User email ${email} not found`);
     return user;
   }
 

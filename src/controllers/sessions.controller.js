@@ -11,15 +11,21 @@ export class SessionsController {
   register = async (req, res, next) => {
     try {
       const { first_name, last_name, email, password } = req.body;
-      if (!first_name || !last_name || !email || !password)
+
+      if (!first_name || !last_name || !email || !password) {
         return res
           .status(400)
           .send({ status: "error", error: "Incomplete values" });
+      }
+
       const exists = await this.userServices.getUserByEmail(email);
-      if (exists)
+
+      if (exists) {
         return res
           .status(400)
           .send({ status: "error", error: "User already exists" });
+      }
+
       const hashedPassword = await createHash(password);
       const user = {
         first_name,
@@ -27,8 +33,9 @@ export class SessionsController {
         email,
         password: hashedPassword,
       };
+
       let result = await this.userServices.create(user);
-      res.send({ status: "success", payload: result._id });
+      res.status(201).send({ status: "success", payload: result });
     } catch (error) {
       next(error);
     }
@@ -53,6 +60,7 @@ export class SessionsController {
           .send({ status: "error", error: "Incorrect password" });
       const userDto = UserDTO.getUserTokenFrom(user);
       const token = jwt.sign(userDto, "tokenSecretJWT", { expiresIn: "1h" });
+
       res
         .cookie("coderCookie", token, { maxAge: 3600000 })
         .send({ status: "success", message: "Logged in" });

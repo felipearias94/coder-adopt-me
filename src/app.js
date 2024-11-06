@@ -4,10 +4,12 @@ import cookieParser from "cookie-parser";
 
 import router from "./routes/index.js";
 import { errorHandle } from "./errors/errorHandler.js";
+import { connectDB } from "./utils/config/dbconnection.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const connection = mongoose.connect(`mongodb://127.0.0.1:27017/adopt-me`);
+
+connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
