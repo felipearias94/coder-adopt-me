@@ -17,6 +17,17 @@ export class PetsController {
     }
   };
 
+  getPetById = async (req, res, next) => {
+    const petId = req.params.pid;
+
+    try {
+      const pet = await this.petService.getById(petId);
+      res.send({ status: "success", payload: pet });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   createPet = async (req, res, next) => {
     try {
       const { name, specie, birthDate } = req.body;

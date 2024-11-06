@@ -72,4 +72,14 @@ export class AdoptionsController {
       next(error);
     }
   };
+
+  deleteAdoption = async (req, res, next) => {
+    try {
+      const adoptionId = req.params.aid;
+      const result = await this.adoptionsService.remove(adoptionId);
+      res.status(200).send({ status: "success", payload: result });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

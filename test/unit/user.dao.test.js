@@ -3,25 +3,17 @@ import mongoose from "mongoose";
 import { expect } from "chai";
 
 mongoose.connect(
-  "mongodb+srv://felari94:123@cluster0.w4kg2ub.mongodb.net/proyecto-final"
+  "mongodb+srv://felari94:123@cluster0.w4kg2ub.mongodb.net/adopt-me"
 );
 
-// Describir nuestro test
 describe("Test UserDao", () => {
   const userDao = new Users();
   let userTest;
 
-  // Método que se ejecuta antes de todos los tests
-  before(() => {
-    console.log("Inicio de todos los tests");
-  });
-
-  // Método que se ejecuta antes de cada test
   beforeEach(() => {
     console.log("Se ejecuta un test individual");
   });
 
-  // Test individual
   it("Debe retornar todos los usuarios", async () => {
     const users = await userDao.get();
     expect(users).to.be.an("array");
@@ -40,7 +32,6 @@ describe("Test UserDao", () => {
 
     const user = await userDao.save(newUser);
     userTest = user;
-    // Afirmación
     expect(user).to.be.an("object");
     expect(user).to.have.property("_id");
     expect(user.first_name).to.be.equal(newUser.first_name);
@@ -49,7 +40,6 @@ describe("Test UserDao", () => {
     expect(user.password).to.be.equal(newUser.password);
     expect(user.role).to.be.equal("user");
 
-    // Negación
     expect(user).to.not.have.property("age");
     expect(user).to.not.have.property("birthDate");
     expect(user).to.not.be.null;
@@ -87,14 +77,12 @@ describe("Test UserDao", () => {
     expect(user).to.be.null;
   });
 
-  // Método que se ejecuta al finaliza cada test
   afterEach(() => {
     console.log("Test individual finalizado");
   });
 
-  // Método que se ejecuta al finalizar todos los test
   after(async () => {
-    console.log("Tests finalizados");
+    console.log("Tests unitarios finalizados");
     mongoose.disconnect();
   });
 });
