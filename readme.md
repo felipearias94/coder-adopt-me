@@ -69,3 +69,8 @@ https://hub.docker.com/repository/docker/ariasfelipe/adopt-me/general
 - `npm run start`: Inicia el servidor en modo producción.
 - `npm run dev`: Inicia el servidor en modo de desarrollo con recarga automática.
 - `npm run test`: Ejecuta las pruebas unitarias.
+
+## Link a la URL del proyecto
+
+El proyecto de desplegó utilizando Render y este es el link proporcionado:
+https://coder-adopt-me.onrender.com
